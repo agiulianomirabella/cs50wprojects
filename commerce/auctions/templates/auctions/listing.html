@@ -1,0 +1,70 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>{{ listing.title }}</h1>
+    <img width = "50%" src="{{ listing.image }}">
+    <div>{{ listing.description }}</div>
+    
+    <form action="{% url 'watch' listing.id %}" method="post">
+        {% csrf_token %}
+        {% if watched %}
+        <input type="submit" value="unwatch">
+        {% else %}
+        <input type="submit" value="watch">
+        {% endif %}
+    </form>
+    
+    <h4>Comments:</h4>
+    <ul>
+        {% for comment in comments %}
+        <li>{{ comment.user }}: {{ comment.text }}</li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+        <form action="{% url 'comment' listing.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="text" placeholder="Comment...">
+            <input type="submit">
+        </form>
+    {% endif %}
+    
+    {% if listing.active %}
+        <h4>Bid</h4>
+        <ul>
+            <li>Current price: {{ listing.current_price }}</li>
+        </ul>
+        {% if user.is_authenticated %}
+                <form action="{% url 'bid' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" value="{{listing.current_price}}" name="amount">
+                    <input type="submit">
+                </form>
+            {% endif %}
+    {% endif %}
+
+    {% if message %}
+        {{message}}
+    {% endif %}
+
+    {% if listing.active %}
+        {% if creator %}
+            <form action="{% url 'close' listing.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Close">
+            </form>
+        {% endif %}
+    {% endif %}
+
+    {% if not listing.active %}
+        {% if winner %}
+            <h2>You won this bid!</h2>
+        {% else %}
+            <h2>Bid closed!</h2>
+            The winner is {{ listing.winner }}
+        {% endif %}
+    {% endif %}
+
+    
+{% endblock %}
