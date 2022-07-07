@@ -1,0 +1,16 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+    <div >
+        <form id="new-post-form" action="{% url 'posts' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+    </div>
+{% endif %}
+
+{% endblock %}

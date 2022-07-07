@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<h1 id="heading"></h1>
+
+    {% if user.is_authenticated %}
+        <div id="profile-section">
+            <h1 id="profile-username"></h1>
+            <div id="profile-posts">
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- {% if user.is_authenticated %}
+    <div id="new-post">
+        <form id="new-post-form" action="{% url 'posts' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+    </div>
+    {% endif %} -->
+
+    <div id="post-section">
+    </div>
+
+    <div id="all-posts-section">
+        <div id="all-posts-posts">
+        </div>
+    </div>
+
+    
+    {% endblock %}
+    
+{% block script %}
+    <script>
+        var user_id = {{ user.id }}
+    </script>
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}

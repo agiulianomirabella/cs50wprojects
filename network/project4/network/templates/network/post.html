@@ -1,0 +1,54 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <script src="network/posts.js">
+        document.addEventListener('DOMContentLoaded', function() {    
+            document.querySelector('#edit-button').onclick = function() {
+                document.querySelector('#edit-form').hidden = false
+                document.querySelector('#back-button').hidden = false
+                document.querySelector('#edit-button').hidden = true
+                document.querySelector('#like-button').hidden = true
+                document.querySelector('#unlike-button').hidden = true
+                document.querySelector('#text').hidden = true
+            }
+        
+            document.querySelector('#back-button').onclick = function() {
+                document.querySelector('#edit-form').hidden = true
+                document.querySelector('#back-button').hidden = true
+                document.querySelector('#edit-button').hidden = false
+                document.querySelector('#like-button').hidden = false
+                document.querySelector('#unlike-button').hidden = false
+                document.querySelector('#text').hidden = false
+            }
+        })
+    </script>
+    
+
+    <h1>@{{ post.author }}</h1>
+    <p id="text">{{ post.text }}</p>
+
+    
+    {% if user.is_authenticated %}
+    {% if user == post.author %}
+    <button id="edit-button">Edit</button>
+            <form id="edit-form" hidden action="{% url 'post' post.id %}" method="post">
+                {% csrf_token %}
+                <input type="text" value="{{ post.text }}" name=post-text>
+                <input type="submit" value="Save">
+            </form>
+            <button hidden id="back-button">Back</button>
+        {% endif %}
+    {% endif %}
+
+    <form action="{% url 'like' post.id %}" method="post">
+        {% csrf_token %}
+        {% if liked %}
+        <input type="submit" value="Unlike">
+        {% else %}
+        <input type="submit" value="Like">
+        {% endif %}
+    </form>
+
+{% endblock %}
