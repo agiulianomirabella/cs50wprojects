@@ -18,14 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const postSection = document.querySelector('#post-section')
   const author = document.querySelector('#post-author')
   const text = document.querySelector('#post-text')
-  const editPostText = document.querySelector('#edit-post-text')
   const commentsSection = document.querySelector('#post-comments')
-  const editPostSection = document.querySelector('#edit-post-section')
-
+  
   const followButton = document.querySelector('#follow-button')
   const likeButton = document.querySelector('#like-button')
   const viewProfileButton = document.querySelector('#view-profile-button')
-  const editPostButton = document.querySelector('#edit-post-button')
   
   function clean() {
     postsToShow.innerHTML = ''
@@ -190,12 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => response.json())
       .then(auth_user => {
 
-        // Edit post
-        // if (auth_user === post.author) {
-        //   editPostSection.style.display = 'block'
-        //   editPostText.innerHTML = post.text
-        // }
-
         var liked = false
         post.likes.forEach(function(value, index, array) {
           if (auth_user.id === value.id){
@@ -254,7 +245,4 @@ document.addEventListener('DOMContentLoaded', function() {
       })
     })
   }
-
-  function edit_post(post_id)
-
 })
