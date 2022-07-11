@@ -43,13 +43,25 @@
                 <textarea name="comment-text" rows="4" cols="50"></textarea>
             </div>
             <div style="text-align:center;">
-                <input type="submit" value="Post">
+                <input type="submit" value="Comment">
+            </div>
+            </form>
+        </div>
+        <button id="like-button">Like</button>
+        <button id="view-profile-button">View profile</button>
+        <button style="display:none" id="edit-post-button">Edit</button>
+        <div style="display:none" id="edit-post-section">
+            <form id="edit-post-form" method="post">
+                {% csrf_token %}
+            <div style="text-align:center;">
+                <textarea id="edit-post-text" name="edit-post-text" rows="4" cols="50"></textarea>
+            </div>
+            <div style="text-align:center;">
+                <input id="edit-post-submit" type="submit" value="Edit post">
             </div>
             </form>
         </div>
         {% endif %}
-        <button id="like-button">Like</button>
-        <button id="view-profile-button">View profile</button>
     </div>
     
     {% endblock %}

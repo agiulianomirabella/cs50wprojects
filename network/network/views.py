@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Post, User, Comment
-
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     if request.user.is_authenticated:
@@ -88,10 +88,13 @@ def following(request):
     return JsonResponse([post.serialize() for post in posts], safe=False)
 
 
+@csrf_exempt
 def edit(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        post.text = request.POST["edit-post-text"]
+        print('PRINT:')
+        print(request.body)
+        post.text = 'New text'
         post.save()
     return JsonResponse(post.serialize(), safe=False)
 
