@@ -1,0 +1,47 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <!-- POST -->
+    <div>
+        <a href="{% url 'profile' post.author.id %}">
+            <h3>@{{ post.author.username }}</h3>
+        </a>
+        {{ post.text }}
+
+        <div style="text-align:center;">
+            <button id="like-button">Like</button>
+        </div>
+
+    </div>    
+
+    <!-- COMMENTS -->
+    <div>
+        <h3>Comments:</h3>
+        {% for comment in post.comments.all %}
+            <div style="border-style:groove; border-color:#abb2b9;">
+                @{{ comment.author }}: "{{ comment.text }}"
+            </div>
+
+        {% empty %}
+            No comments yet.
+        {% endfor %}
+    </div>
+
+    <!-- NEW COMMENT -->
+    {% if user.is_authenticated %}
+    <div>
+        <h3>New comment:</h3>
+        <form action="{% url 'comments' post_id=post.id %}" method="post">
+            {% csrf_token %}
+            <div style="text-align:center;">
+                <textarea name="text" rows="4" cols="50"></textarea>
+            </div>
+            <div style="text-align:center;">
+                <input type="submit" value="Comment">
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+{% endblock %}

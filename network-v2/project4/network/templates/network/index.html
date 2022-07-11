@@ -1,0 +1,35 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <!-- NEW POST -->
+    {% if user.is_authenticated %}
+    <div id="new-post-section">
+        <h3>New post:</h3>
+        <form id="new-post-form" action="{% url 'posts' %}" method="post">
+            {% csrf_token %}
+            <div style="text-align:center;">
+                <textarea name="text" rows="4" cols="50"></textarea>
+            </div>
+            <div style="text-align:center;">
+                <input type="submit" value="Post">
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- FEED -->
+    <h3>Feed:</h3>
+    {% for post in posts %}
+        <div onclick='location.href="{% url 'post' post.id %}";' style="border-style:groove; border-color:#abb2b9;">
+            @{{ post.author.username }}: "{{ post.text }}"
+            <div style="float:right; color:grey;";>
+                {{ post.timestamp }} 
+                {{ post.likes_number }} 
+                <img width="15px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/200px-Bot%C3%B3n_Me_gusta.svg.png">
+            </div>
+        </div>
+    {% empty %}
+        No posts yet.
+    {% endfor %}
+{% endblock %}

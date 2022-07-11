@@ -1,0 +1,52 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <!-- NEW POST -->
+    {% if user.is_authenticated %}
+    <div style="display:none" id="new-post-section">
+        <form id="new-post-form" action="{% url 'posts' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="new-post-text">
+            <input type="submit">
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- VIEW POSTS -->
+    <div style="display:none" id="posts-section">
+        <h1 id="posts-heading"></h1>
+        <div id="posts-posts">
+        </div>
+    </div>
+    
+    <button style="display:none" id="follow">Follow</button>
+
+    <!-- VIEW POST -->
+    <div style="display:none" id="post-section">
+        <h1 id="post-author"></h1>
+        <p id="post-text"></p>
+        <h3>Comments:</h3>
+        <div id="post-comments"></div>
+        {% if user.is_authenticated %}
+        <div id="post-comment">
+            <form id="post-comment-form" action="{% url 'comments' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="comment-text">
+                <input type="submit">
+            </form>
+        </div>
+        {% endif %}    
+        <button id="like">Like</button>
+        <button id="view-profile">View profile</button>
+    </div>
+    
+    {% endblock %}
+    
+{% block script %}
+    <script>
+        const auth_user_id = {{ user.id }}
+    </script>
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
