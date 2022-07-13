@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let editPostText = document.querySelector('#edit-post-text')
   const commentsSection = document.querySelector('#post-comments')
   const editPostSection = document.querySelector('#edit-post-section')
+  const postLikes = document.querySelector('#post-likes')
 
   const followButton = document.querySelector('#follow-button')
   const likeButton = document.querySelector('#like-button')
@@ -202,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       author.innerHTML = `@${post.author.username}`
       text.innerHTML = `${post.text}`
+      postLikes.innerHTML = `${post.likes_number}`
 
       // GET post comments
       fetch('posts/'+post_id+'/comments')
@@ -283,8 +285,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (liked) {
               likeButton.innerHTML = 'Dislike'
+              postLikes.innerHTML = `${post.likes_number}`
             } else {
               likeButton.innerHTML = 'Like'
+              postLikes.innerHTML = `${post.likes_number}`
             }
           })
         }
