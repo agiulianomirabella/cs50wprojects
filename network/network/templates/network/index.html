@@ -48,10 +48,10 @@
             <form id="post-comment-form" method="post">
                 {% csrf_token %}
             <div style="text-align:center;">
-                <textarea name="comment-text" rows="4" cols="50"></textarea>
+                <textarea id="new-comment" rows="4" cols="50"></textarea>
             </div>
             <div style="text-align:center;">
-                <input type="submit" value="Comment">
+                <input id="new-comment-submit" type="submit" value="Comment">
             </div>
             </form>
         </div>
@@ -62,7 +62,6 @@
             <form id="edit-post-form" method="post">
                 {% csrf_token %}
             <div style="text-align:center;">
-                <!-- <input type="text" id="edit-post-text" name="edit-post-text"> -->
                 <textarea id="edit-post-text" name="edit-post-text" rows="4" cols="50"></textarea>
             </div>
             <div style="text-align:center;">

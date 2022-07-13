@@ -93,7 +93,7 @@ def comments(request, post_id):
     if request.method == 'POST':
 
         data = json.loads(request.body)
-        new_comment_text = data["new-comment-text"]
+        new_comment_text = data["new-comment"]
 
         author = request.user
         post = Post.objects.get(pk=post_id)

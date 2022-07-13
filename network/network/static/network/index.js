@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const commentsSection = document.querySelector('#post-comments')
   const editPostSection = document.querySelector('#edit-post-section')
   const postLikes = document.querySelector('#post-likes')
+  const newCommentText = document.querySelector('#new-comment')
+  const newCommentSubmit = document.querySelector('#new-comment-submit')
 
   const newPostButton = document.querySelector('#new-post-submit')
   const followButton = document.querySelector('#follow-button')
@@ -225,6 +227,15 @@ document.addEventListener('DOMContentLoaded', function() {
           commentsSection.append(element)
         })
       })
+
+      newCommentSubmit.onclick = function() {
+        fetch('posts/'+post_id+'/comments', {
+          method: 'POST',
+          body: JSON.stringify({
+            'new-comment': newCommentText.value
+          })
+        })
+      }
 
       // Update like button
       fetch('/users/'+auth_user_id)
