@@ -10,13 +10,13 @@
     {% if user.is_authenticated %}
     <div style="display:none" id="new-post-section">
         <h1>New post</h1>
-        <form id="new-post-form" action="{% url 'posts' %}" method="post">
+        <form id="new-post-form" method="post">
             {% csrf_token %}
             <div style="text-align:center;">
-                <textarea name="new-post-text" rows="4" cols="50"></textarea>
+                <textarea id="new-post-text" name="new-post-text" rows="4" cols="50"></textarea>
             </div>
             <div style="text-align:center;">
-                <input type="submit" value="Post">
+                <input id="new-post-submit" type="submit" value="Post">
             </div>
         </form>
     </div>
@@ -62,6 +62,7 @@
             <form id="edit-post-form" method="post">
                 {% csrf_token %}
             <div style="text-align:center;">
+                <!-- <input type="text" id="edit-post-text" name="edit-post-text"> -->
                 <textarea id="edit-post-text" name="edit-post-text" rows="4" cols="50"></textarea>
             </div>
             <div style="text-align:center;">

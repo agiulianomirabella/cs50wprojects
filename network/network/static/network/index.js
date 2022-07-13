@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Auxiliary
   const newPostSection = document.querySelector('#new-post-section')
-  const newPostForm = document.querySelector('#new-post-form')
+  const newPostText = document.querySelector('#new-post-text')
 
   const postsSection = document.querySelector('#posts-section')
   const heading = document.querySelector('#posts-heading')
@@ -18,11 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const postSection = document.querySelector('#post-section')
   const author = document.querySelector('#post-author')
   const text = document.querySelector('#post-text')
-  let editPostText = document.querySelector('#edit-post-text')
+  const editPostText = document.querySelector('#edit-post-text')
   const commentsSection = document.querySelector('#post-comments')
   const editPostSection = document.querySelector('#edit-post-section')
   const postLikes = document.querySelector('#post-likes')
 
+  const newPostButton = document.querySelector('#new-post-submit')
   const followButton = document.querySelector('#follow-button')
   const likeButton = document.querySelector('#like-button')
   const viewProfileButton = document.querySelector('#view-profile-button')
@@ -176,6 +177,15 @@ document.addEventListener('DOMContentLoaded', function() {
         show_post(post)
       })
     })
+
+    newPostButton.onclick = function() {
+      fetch('/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+            'new-post-text': newPostText.value
+          })
+        })
+    }
   }
 
 
@@ -229,25 +239,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         editPostButton.onclick = function() {
+
           editPostSection.style.display = 'block'
-          editPostText.innerHTML = post.text
+          // editPostText.innerHTML = post.text
+
+          console.log('Editing the post.')
+
           editPostSubmit.onclick = function () {
-            let new_text = editPostText.innerHTML
-            console.log('Editing the post.')
+
             fetch('/posts/'+post_id+'/edit', {
-              
-              // Adding method type
-              method: "POST",
-              
-              // Adding body or contents to send
+              method: 'PUT',
               body: JSON.stringify({
-                'edit-post-text': new_text,
-              }),
-              
-              // Adding headers to the request
-              headers: {
-                "Content-type": "application/json; charset=UTF-8"
-              }
+                'new-text': editPostText.value
+              })
             })
           }
         }

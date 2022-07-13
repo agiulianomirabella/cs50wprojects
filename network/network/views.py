@@ -14,9 +14,13 @@ def index(request):
     return redirect(login_view)
 
 
+@csrf_exempt
 def posts(request):
     if request.method == 'POST':
-        text = request.POST["new-post-text"]
+
+        data = json.loads(request.body)
+        text = data["new-post-text"]
+
         author = request.user
         post = Post(text=text, author=author)
         post.save()
