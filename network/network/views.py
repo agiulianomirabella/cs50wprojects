@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Post, User, Comment
 from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -14,7 +16,7 @@ def index(request):
 
 def posts(request):
     if request.method == 'POST':
-        text = request.POST["new-comment-text"]
+        text = request.POST["new-post-text"]
         author = request.user
         post = Post(text=text, author=author)
         post.save()
@@ -47,7 +49,12 @@ def profile(request, user_id):
     return JsonResponse(user.serialize(), safe=False)
 
 
+@csrf_exempt
 def like(request, post_id):
+
+    if request.method != 'PUT':
+        return JsonResponse({"error": "PUT request required."}, status=400)
+
     post = Post.objects.get(pk=post_id)
     liked = request.user in post.likes.all()
 
@@ -59,7 +66,12 @@ def like(request, post_id):
     return JsonResponse(post.serialize(), safe=False)
 
 
+@csrf_exempt
 def follow(request, user_id):
+    
+    if request.method != 'PUT':
+        return JsonResponse({"error": "PUT request required."}, status=400)
+
     profile = User.objects.get(pk=user_id)
     followed = request.user in profile.followers.all()
 
@@ -71,14 +83,21 @@ def follow(request, user_id):
     return JsonResponse(profile.serialize(), safe=False)
 
 
+@csrf_exempt
 def comments(request, post_id):
+    
     if request.method == 'POST':
-        text = request.POST["new-comment-text"]
+
+        data = json.loads(request.body)
+        new_comment_text = data["new-comment-text"]
+
         author = request.user
         post = Post.objects.get(pk=post_id)
-        comment = Comment(text=text, author=author, post=post)
+        comment = Comment(text=new_comment_text, author=author, post=post)
         comment.save()
+
     comments = Comment.objects.all()
+
     return JsonResponse([comment.serialize() for comment in comments], safe=False)
 
 
@@ -87,18 +106,21 @@ def following(request):
     posts = [x for f in following for x in f.posts.all()]
     return JsonResponse([post.serialize() for post in posts], safe=False)
 
-
 @csrf_exempt
 def edit(request, post_id):
+
+    if request.method != 'PUT':
+        return JsonResponse({"error": "PUT request required."}, status=400)
+
     post = Post.objects.get(id=post_id)
-    if request.method == 'POST':
-        print('PRINT:')
-        print(request.body)
-        post.text = 'New text'
-        post.save()
+    data = json.loads(request.body)
+    new_text = data['new-text']
+    post.text = new_text
+    post.save()
     return JsonResponse(post.serialize(), safe=False)
 
 
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 
@@ -119,11 +141,13 @@ def login_view(request):
         return render(request, "network/login.html")
 
 
+@csrf_exempt
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
 
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]

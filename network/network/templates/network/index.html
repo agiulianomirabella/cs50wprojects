@@ -4,6 +4,8 @@
 
 {% block body %}
 
+
+
     <!-- NEW POST -->
     {% if user.is_authenticated %}
     <div style="display:none" id="new-post-section">
@@ -20,6 +22,8 @@
     </div>
     {% endif %}
 
+
+
     <!-- VIEW POSTS -->
     <div style="display:none" id="posts-section">
         <h1 id="posts-heading"></h1>
@@ -29,10 +33,14 @@
     
     <button style="display:none" id="follow-button">Follow</button>
 
+
+
     <!-- VIEW POST -->
     <div style="display:none" id="post-section">
         <h1 id="post-author"></h1>
         <p id="post-text"></p>
+        <h3>Likes:</h3>
+        <p id="post-likes"></p>
         <h3>Comments:</h3>
         <div id="post-comments"></div>
         {% if user.is_authenticated %}
@@ -66,7 +74,9 @@
     
     {% endblock %}
     
-{% block script %}
+
+
+    {% block script %}
     <script>
         const auth_user_id = {{ user.id }}
     </script>

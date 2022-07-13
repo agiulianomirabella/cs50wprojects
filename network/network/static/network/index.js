@@ -56,6 +56,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 
+
+
+  // fetch('/emails/'+id, {
+  //   method: 'PUT',
+  //   body: JSON.stringify({
+  //       read: true
+  //     })
+  //   });
+
+
+
   // VIEW PROFILE
 
   function view_profile(user_id) {
@@ -65,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     postsSection.style.display = 'block'
     postSection.style.display = 'none'
     newPostSection.style.display = 'none'
+    followButton.style.display = 'none'
 
     if (user_id !== auth_user_id) {
       followButton.style.display = 'block'
@@ -108,31 +120,40 @@ document.addEventListener('DOMContentLoaded', function() {
             followButton.innerHTML = `Follow`
           }
           
-          // Change the like of the post
+          // Follow
           followButton.onclick = function() {
-            fetch('/users/'+user_id+'/follow')
-            .then(response => response.json())
-            .then(user => {
-            
-              var followed = false
-              user.followers.forEach(function(value, index, array) {
-                if (auth_user.username === value) {
-                  followed = true
-                }
+            fetch('/users/'+user_id+'/follow', {
+              method: 'PUT',
+              body: JSON.stringify({
+                  followed: followed
+                })
               })
-
-              if (followed) {
-                followButton.innerHTML = 'Unfollow'
-              } else {
-                followButton.innerHTML = 'Follow'
-              }
-
+              .then(response => response.json())
+              .then(user => {
+                var followed = false
+                user.followers.forEach(function(value, index, array) {
+                  if (auth_user.username === value) {
+                    followed = true
+                  }
+                })
+    
+                if (followed) {
+                  followButton.innerHTML = 'Unfollow'
+                } else {
+                  followButton.innerHTML = 'Follow'
+                }
             })
           }
         })
       })
     })
   }
+
+
+
+
+
+
 
   // VIEW ALL POSTS
 
@@ -156,6 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
   }
 
+
+
+
+
+
+
   // VIEW POST
 
   function view_post(post_id) {
@@ -166,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     postsSection.style.display = 'none'
     postSection.style.display = 'block'
     newPostSection.style.display = 'none'
+    followButton.style.display = 'none'
     
     // GET post
     fetch('/posts/'+post_id)
@@ -237,7 +265,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Change the like of the post
         likeButton.onclick = function() {
-          fetch('/posts/'+post_id+'/like')
+          fetch('/posts/'+post_id+'/like', {
+            method: 'PUT',
+            body: JSON.stringify({
+                liked: liked
+              })
+            })
           .then(response => response.json())
           .then(post => {
           
@@ -262,6 +295,13 @@ document.addEventListener('DOMContentLoaded', function() {
     })
   }
 
+
+
+
+
+
+  // VIEW FOLLOWING
+
   function view_following() {
     console.log(`View following.`)
     
@@ -269,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
     postSection.style.display = 'none'
     newPostSection.style.display = 'none'
     heading.innerHTML = `Following`
+    followButton.style.display = 'none'
 
     clean()
 
