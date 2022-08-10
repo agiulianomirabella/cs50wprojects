@@ -63,5 +63,20 @@ def register(request):
         return render(request, "reports/register.html")
 
 
+def northamerica(request):
+    return render(request, "reports/northamerica.html")
+
+def southamerica(request):
+    return render(request, "reports/southamerica.html")
+
 def europe(request):
     return render(request, "reports/europe.html")
+
+def africa(request):
+    return render(request, "reports/africa.html")
+
+def northasia(request):
+    return render(request, "reports/northasia.html")
+
+def southasia(request):
+    return render(request, "reports/southasia.html")

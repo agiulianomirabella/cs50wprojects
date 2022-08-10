@@ -1576,12 +1576,12 @@ var simplemaps_worldmap_mapdata={
     0: {
       name: "North America",
       states: ["MX","CA","US","GL"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/northamerica"
     },
     1: {
       name: "South America",
       states: ["EC","AR","VE","BR","CO","BO","PE","BZ","CL","CR","CU","DO","SV","GT","GY","GF","HN","NI","PA","PY","PR","SR","UY","JM","HT","BS"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/southamerica"
     },
     2: {
       name: "Europe",
@@ -1591,17 +1591,17 @@ var simplemaps_worldmap_mapdata={
     3: {
       name: "Africa and the Middle East",
       states: ["QA","SA","AE","SY","OM","KW","PK","AZ","AF","IR","IQ","IL","PS","JO","LB","YE","TJ","TM","UZ","KG","NE","AO","EG","TN","GA","DZ","LY","CG","GQ","BJ","BW","BF","BI","CM","CF","TD","CI","CD","DJ","ET","GM","GH","GN","GW","KE","LS","LR","MG","MW","ML","MA","MR","MZ","NA","NG","ER","RW","SN","SL","SO","ZA","SD","SS","SZ","TZ","TG","UG","EH","ZM","ZW"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/africa"
     },
     4: {
       name: "South Asia",
       states:["TW","IN","AU","MY","NP","NZ","TH","BN","JP","VN","LK","SB","FJ","BD","BT","KH","LA","MM","KP","PG","PH","KR","ID","CN"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/southasia"
     },
     5:	{
       name: "North Asia",
       states: ["MN", "RU", "KZ"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/northasia"
     }
   }, 
 
