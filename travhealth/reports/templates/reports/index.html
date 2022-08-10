@@ -1,5 +1,27 @@
 {% extends "reports/layout.html" %}
 
+{% load static %}
+
 {% block body %}
-    TODO
+
+<div id="home-section" style="text-align: center; display: none;">
+    <img src="static/reports/appleworld.jpeg">
+</div>
+
+<div id="profile-section" style="display: none;">
+    Report
+</div>
+
+<div id="news-section" style="display: none;">
+    News
+</div>
+
+<div id="map-section">
+    <div id="map"></div>
+</div>
+
+<script src="{% static 'reports/index.js' %}"></script>
+<script type="text/javascript" src="static/reports/mapdata.js"></script>
+<script type="text/javascript" src="static/reports/worldmap.js"></script>
+
 {% endblock %}
