@@ -1586,7 +1586,7 @@ var simplemaps_worldmap_mapdata={
     2: {
       name: "Europe",
       states:["IT","NL","NO","DK","IE","GB","RO","DE","FR","AL","AM","AT","BY","BE","LU","BG","CZ","EE","GE","GR","HU","IS","LV","LT","MD","PL","PT","RS","SI","HR","BA","ME","MK","SK","ES","FI","SE","CH","TR","CY","UA","XK"],
-      url: "https://simplemaps.com"
+      url: "http://127.0.0.1:8000/europe"
     },
     3: {
       name: "Africa and the Middle East",

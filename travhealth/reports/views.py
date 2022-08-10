@@ -61,3 +61,7 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "reports/register.html")
+
+
+def europe(request):
+    return render(request, "reports/europe.html")
