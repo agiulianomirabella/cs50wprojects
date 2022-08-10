@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Post, User, Comment
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 import json
 
 
@@ -24,7 +25,19 @@ def posts(request):
         author = request.user
         post = Post(text=text, author=author)
         post.save()
+        
     posts = Post.objects.all().order_by("-timestamp")
+    paginator = Paginator(posts, 10)
+    page = request.GET.get('page')
+    print('PRINT:')
+    print(f'page:{page}')
+    print(f'All posts: {len(posts)}')
+    for p in posts:
+        print(p.text)
+    posts = paginator.get_page(page)
+    print(f'Selected posts: {len(posts)}')
+    for p in posts:
+        print(p.text)
     return JsonResponse([post.serialize() for post in posts], safe=False)
 
 

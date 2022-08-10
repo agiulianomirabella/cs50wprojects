@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#auth-profile-button').onclick = function() {
     view_profile(auth_user_id)
   }
-  document.querySelector('#all-posts-button').onclick = view_posts
+  document.querySelector('#all-posts-button').onclick = function() {
+    view_posts(1)
+  }
   document.querySelector('#following-button').onclick = view_following
 
   // Auxiliary
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const postsSection = document.querySelector('#posts-section')
   const heading = document.querySelector('#posts-heading')
   const postsToShow = document.querySelector('#posts-posts')
+  const pagination = document.querySelector('#pagination')
   
   const postSection = document.querySelector('#post-section')
   const author = document.querySelector('#post-author')
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const viewProfileButton = document.querySelector('#view-profile-button')
   const editPostButton = document.querySelector('#edit-post-button')
   const editPostSubmit = document.querySelector('#edit-post-submit')
+  const paginationButton = document.querySelector('#pagination-button')
   
   function clean() {
     postsToShow.innerHTML = ''
@@ -161,18 +165,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // VIEW ALL POSTS
 
-  function view_posts() {
+  function view_posts(page) {
 
-    console.log(`View all posts.`)
+    console.log(`View all posts. Page: ${page}`)
     
     postsSection.style.display = 'block'
     postSection.style.display = 'none'
     newPostSection.style.display = 'block'
+    pagination.style.display = 'block'
     heading.innerHTML = `Feed`
 
     clean()
     
-    fetch('/posts')
+    fetch(`/posts?page=${page}`)
     .then(response => response.json())
     .then(posts => {
       posts.forEach(post => {
@@ -187,6 +192,10 @@ document.addEventListener('DOMContentLoaded', function() {
             'new-post-text': newPostText.value
           })
         })
+    }
+
+    paginationButton.onclick = function () {
+      view_posts(page + 1)
     }
   }
 
@@ -207,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
     postSection.style.display = 'block'
     newPostSection.style.display = 'none'
     followButton.style.display = 'none'
+    paginationButton.style.display = 'none'
     
     // GET post
     fetch('/posts/'+post_id)
