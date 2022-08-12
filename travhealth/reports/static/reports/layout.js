@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const newsSection = document.querySelector("#news-section")
     const mapSection = document.querySelector("#map-section")
 
-    // Show TravHealth home
+    // Show home
     document.querySelector("#home-button").onclick = () => {
         console.log("Show home section.")
         homeSection.style.display = "block"
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show News
     document.querySelector("#news-button").onclick = () => {
-        homeSection.style.display = "none"
         console.log("Show news section.")
+        homeSection.style.display = "none"
         profileSection.style.display = "none"
         newsSection.style.display = "block"
         mapSection.style.display = "none"

@@ -1,14 +1,18 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
-from .models import User
+import json
+from .models import New, User
 
 
 def index(request):
-    return render(request, "reports/index.html")
+    return render(request, "reports/index.html", {
+        'region_description' : False
+    })
 
 
 def login_view(request):
@@ -62,6 +66,20 @@ def register(request):
     else:
         return render(request, "reports/register.html")
 
+@csrf_exempt
+def news(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        text = data['new-new-text']
+        region = data['new-new-region']
+
+        author = request.user
+        new = New(text=text, author=author, region=region)
+        new.save()
+        
+    news = New.objects.all().order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
 
 def northamerica(request):
     return render(request, "reports/northamerica.html")

@@ -8,6 +8,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+    path("news", views.news, name="news"),
     path("northamerica", views.northamerica, name="northamerica"),
     path("southamerica", views.southamerica, name="southamerica"),
     path("europe", views.europe, name="europe"),
