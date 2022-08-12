@@ -25,7 +25,7 @@ class New(models.Model):
         choices=Region.choices,
     )
 
-    author = models.ManyToManyField(User, related_name='news')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="news", blank=True, null=True)
     text = models.CharField(max_length=64)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -39,19 +39,19 @@ class New(models.Model):
         }
 
 
-class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
-    text = models.CharField(max_length=64)
-    new = models.ForeignKey(New, on_delete=models.CASCADE, related_name="comments")
+# class Comment(models.Model):
+#     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+#     text = models.CharField(max_length=64)
+#     new = models.ForeignKey(New, on_delete=models.CASCADE, related_name="comments")
 
-    # def __str__(self):
-    #     return f'@{self.author}: "{self.text}"'
+#     # def __str__(self):
+#     #     return f'@{self.author}: "{self.text}"'
 
-    def serialize(self):
-        return {
-            'id': self.id,
-            'author': self.author.serialize(),
-            'text': self.text,
-            'new': self.new.serialize(),
-        }
+#     def serialize(self):
+#         return {
+#             'id': self.id,
+#             'author': self.author.serialize(),
+#             'text': self.text,
+#             'new': self.new.serialize(),
+#         }
 
