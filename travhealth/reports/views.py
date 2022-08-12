@@ -14,7 +14,7 @@ def index(request):
         'region_description' : False
     })
 
-
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 
@@ -40,6 +40,7 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -98,3 +99,29 @@ def northasia(request):
 
 def southasia(request):
     return render(request, "reports/southasia.html")
+
+
+def northamerica_news(request):
+    news = New.objects.filter(region='North America').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
+def southamerica_news(request):
+    news = New.objects.filter(region='South America').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
+def europe_news(request):
+    news = New.objects.filter(region='Europe').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
+def africa_news(request):
+    news = New.objects.filter(region='Africa').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
+def northasia_news(request):
+    news = New.objects.filter(region='North Asia').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
+def southasia_news(request):
+    news = New.objects.filter(region='South Asia').order_by("-timestamp")
+    return JsonResponse([new.serialize() for new in news], safe=False)
+
