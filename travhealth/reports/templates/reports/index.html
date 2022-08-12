@@ -9,17 +9,38 @@
 </div>
 
 <div id="profile-section" style="display: none;">
-    Report
+    <div id="report"></div>
+    <button id="edit-report-button">Edit</button>
+
+    <div id="edit-report-section" style="display: none;">
+        <!-- <form id="edit-report-form" method="put">
+            {% csrf_token %}
+        <div style="text-align:center;">
+            <textarea id="edit-report-text" name="edit-report-text" rows="4" cols="50"></textarea>
+        </div>
+        <div style="text-align:center;">
+            <input id="edit-report-submit" type="submit" value="Edit report">
+        </div>
+        </form> -->
+
+        <div style="text-align:center;">
+            <textarea id="edit-report-text" name="edit-report-text" rows="4" cols="50"></textarea>
+        </div>
+        <div style="text-align:center;">
+            <input id="edit-report-submit" type="submit" value="Edit report">
+        </div>
+
+    </div>
+
 </div>
 
-<div id="news-section" style="display: none;">
-    News
-</div>
+<div id="news-section" style="display: none;"></div>
 
 <div id="map-section" style="width: 50%;">
     <div id="map"></div>
 </div>
 
+<script type="text/javascript" src="static/reports/index.js"></script>
 <script type="text/javascript" src="static/reports/mapdata.js"></script>
 <script type="text/javascript" src="static/reports/worldmap.js"></script>
 

@@ -1,13 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-import django.utils.timezone as timezone
 
 
 class User(AbstractUser):
+    report = models.CharField(max_length=256, default='')
+
     def serialize(self):
         return {
             'id': self.id,
             'username': self.username,
+            'report': self.report
         }
 
 class New(models.Model):
@@ -37,7 +39,6 @@ class New(models.Model):
             'text': self.text,
             'timestamp': self.timestamp,
         }
-
 
 # class Comment(models.Model):
 #     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")

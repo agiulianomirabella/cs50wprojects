@@ -28,11 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show News
     document.querySelector("#news-button").onclick = () => {
+
+        newsSection.innerHTML = ''
+
+        // GET news
+        fetch(`news`)
+        .then(response => response.json())
+        .then(news => {
+            news.forEach(news_item => {
+                const element = document.createElement('div')
+                element.innerHTML = `@${news_item.author.username} from ${news_item.region}: "${news_item.text}"`
+                newsSection.append(element)
+            })
+        })
+
         console.log("Show news section.")
         homeSection.style.display = "none"
         profileSection.style.display = "none"
         newsSection.style.display = "block"
         mapSection.style.display = "none"
+
     }
 
 

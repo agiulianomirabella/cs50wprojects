@@ -125,3 +125,16 @@ def southasia_news(request):
     news = New.objects.filter(region='South Asia').order_by("-timestamp")
     return JsonResponse([new.serialize() for new in news], safe=False)
 
+@csrf_exempt
+def report(request):
+    user = request.user
+
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        new_report = data['edit-report-text']
+        user.report = new_report
+        user.save()
+
+    report = user.report
+    return JsonResponse({'report': report})
+

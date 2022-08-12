@@ -21,4 +21,5 @@ urlpatterns = [
     path("africa", views.africa, name="africa"),
     path("northasia", views.northasia, name="northasia"),
     path("southasia", views.southasia, name="southasia"),
+    path("report", views.report, name="report"),
 ]

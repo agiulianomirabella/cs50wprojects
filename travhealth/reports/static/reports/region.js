@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const newsSection = document.querySelector('#news-section')
-    console.log('Running script region.js')
 
     // GET news
     fetch(`${region}/news`)
