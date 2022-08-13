@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    report = models.CharField(max_length=256, default='')
+    report = models.CharField(max_length=256, default='No report yet.')
 
     def serialize(self):
         return {
@@ -28,8 +28,11 @@ class New(models.Model):
     )
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="news", blank=True, null=True)
-    text = models.CharField(max_length=64)
+    text = models.CharField(max_length=256)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'@{self.author.username} from {self.region}: "{self.text}"'
 
     def serialize(self):
         return {

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(news => {
         news.forEach(news_item => {
             const element = document.createElement('div')
-            element.innerHTML = `@${news_item.author.username}: "${news_item.text}"`
+                element.innerHTML = `<p>@${news_item.author.username} from ${news_item.region}: "${news_item.text}"</p><hr>`
             newsSection.append(element)
         })
     })
